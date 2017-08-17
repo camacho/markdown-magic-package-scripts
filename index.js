@@ -36,7 +36,22 @@ module.exports = function SCRIPTS(originalContent, options = {}, config) {
   return ['| Script | Description |', '|--------|-------------|']
     .concat(
       Object.keys(scripts)
-        .sort()
+        .sort((a,b, array) => {
+          regex = /^(pre|post)?(.*)$/;
+          let [, prefixA, suffixA] = a.match(regex);
+          let [, prefixB, suffixB] = b.match(regex);
+
+          // Disregard the prefix if there is no suffix method
+          // mostly for npm hook scripts
+          if (!scripts[suffixA]) suffixA = a;
+          if (!scripts[suffixB]) suffixB = b;
+
+          if (suffixA === suffixB) {
+            return (prefixA === 'pre' || prefixB === 'post') ? -1 : 1
+          }
+
+          return suffixA > suffixB;
+        })
         .map(script => `| ${[script, details[script] || ''].join(' | ')} |`)
     )
     .join('\n');
