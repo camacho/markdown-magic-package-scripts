@@ -465,6 +465,10 @@ set-getter@^0.1.0:
   dependencies:
     to-object-path "^0.3.0"
 
+sort-scripts@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/sort-scripts/-/sort-scripts-1.0.0.tgz#1753f8e281758e6084092bc19c624d185be08f5a"
+
 sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"

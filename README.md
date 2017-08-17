@@ -35,8 +35,8 @@ markdownMagic(markdownPath, config);
 <!-- AUTO-GENERATED-CONTENT:START (SCRIPTS) -->
 | Script | Description |
 |--------|-------------|
-| docs | generate docs |
-| empty |  |
-| format | format code |
-| prepublish | npm hook to run before publishing |
+| `docs` | generate docs |
+| `empty` | `echo "this is just an example"` |
+| `format` | format code |
+| `prepublish` | npm hook to run before publishing |
 <!-- AUTO-GENERATED-CONTENT:END -->

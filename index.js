@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const findup = require('findup');
+const sortScripts = require('sort-scripts');
 
 function findPkg(dir) {
   try {
@@ -35,24 +36,11 @@ module.exports = function SCRIPTS(originalContent, options = {}, config) {
 
   return ['| Script | Description |', '|--------|-------------|']
     .concat(
-      Object.keys(scripts)
-        .sort((a,b, array) => {
-          regex = /^(pre|post)?(.*)$/;
-          let [, prefixA, suffixA] = a.match(regex);
-          let [, prefixB, suffixB] = b.match(regex);
-
-          // Disregard the prefix if there is no suffix method
-          // mostly for npm hook scripts
-          if (!scripts[suffixA]) suffixA = a;
-          if (!scripts[suffixB]) suffixB = b;
-
-          if (suffixA === suffixB) {
-            return (prefixA === 'pre' || prefixB === 'post') ? -1 : 1
-          }
-
-          return suffixA > suffixB;
-        })
-        .map(script => `| ${[script, details[script] || ''].join(' | ')} |`)
+      sortScripts(scripts).map(([name, script]) => {
+        const description = details[name] || `\`${script}\``;
+        const label = `\`${name}\``;
+        return `| ${label} | ${description} |`;
+      })
     )
     .join('\n');
-  }
+};
